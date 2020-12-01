@@ -15,11 +15,12 @@ const (
 
 func findTargetEntries(entries []int) ([2]int, error) {
 
-	// Loop through every possible iteration looking for targetAmount
+	// Loop through every possible iteration looking for two entires that add to
+	// targetAmount
 	var firstEntry, secondEntry, i, j int
 	for i, firstEntry = range entries {
 		for j, secondEntry = range entries {
-			// Don't try to an entry against itself
+			// Don't test an entry against itself
 			if i == j {
 				continue
 			}
@@ -30,7 +31,7 @@ func findTargetEntries(entries []int) ([2]int, error) {
 		}
 	}
 
-	return [2]int{}, errors.New("Target amount not found")
+	return nil, errors.New("Target amount not found")
 }
 
 // Read entries from input.txt in the same directory
@@ -65,7 +66,6 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-
 	targetEntries, err := findTargetEntries(entries)
 	fmt.Printf("Product of entries is: %d\n", targetEntries[0]*targetEntries[1])
 }
