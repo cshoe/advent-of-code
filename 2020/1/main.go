@@ -83,27 +83,30 @@ func getEntries() ([]int, error) {
 	return entries, nil
 }
 
-func part1() {
-	entries, err := getEntries()
+func part1(entries []int) {
+	targetEntries, err := findTargetEntries(entries)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	targetEntries, err := findTargetEntries(entries)
 	fmt.Printf("Part 1 product of entries is: %d\n", targetEntries[0]*targetEntries[1])
 }
 
-func part2() {
-	entries, err := getEntries()
+func part2(entries []int) {
+	targetEntries, err := findThreeTargetEntries(entries)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	targetEntries, err := findThreeTargetEntries(entries)
 	fmt.Printf("Part 2 product of entries is: %d\n", targetEntries[0]*targetEntries[1]*targetEntries[2])
 }
 
 func main() {
-	part1()
-	part2()
+	entries, err := getEntries()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	part1(entries)
+	part2(entries)
 }
