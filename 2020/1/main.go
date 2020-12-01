@@ -31,7 +31,30 @@ func findTargetEntries(entries []int) ([2]int, error) {
 		}
 	}
 
-	return nil, errors.New("Target amount not found")
+	return [2]int{}, errors.New("Target amount not found")
+}
+
+func findThreeTargetEntries(entries []int) ([3]int, error) {
+	// Loop through every possible iteration looking for three entires that add to
+	// targetAmount
+	var firstEntry, secondEntry, thirdEntry, i, j, k int
+	for i, firstEntry = range entries {
+		for j, secondEntry = range entries {
+			for k, thirdEntry = range entries {
+				// skip iterations that reuse and entry
+				if i == j || j == k || i == k {
+					continue
+				}
+
+				if firstEntry+secondEntry+thirdEntry == targetAmount {
+					return [3]int{firstEntry, secondEntry, thirdEntry}, nil
+				}
+			}
+		}
+	}
+
+	return [3]int{}, errors.New("Target amount not found")
+
 }
 
 // Read entries from input.txt in the same directory
@@ -60,12 +83,27 @@ func getEntries() ([]int, error) {
 	return entries, nil
 }
 
-func main() {
+func part1() {
 	entries, err := getEntries()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	targetEntries, err := findTargetEntries(entries)
-	fmt.Printf("Product of entries is: %d\n", targetEntries[0]*targetEntries[1])
+	fmt.Printf("Part 1 product of entries is: %d\n", targetEntries[0]*targetEntries[1])
+}
+
+func part2() {
+	entries, err := getEntries()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	targetEntries, err := findThreeTargetEntries(entries)
+	fmt.Printf("Part 2 product of entries is: %d\n", targetEntries[0]*targetEntries[1]*targetEntries[2])
+}
+
+func main() {
+	part1()
+	part2()
 }
