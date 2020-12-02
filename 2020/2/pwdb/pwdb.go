@@ -67,23 +67,7 @@ func (r Row) IsOfficiallyValid() bool {
 	lowMatch := r.Password[r.Policy.Min-1] == r.Policy.Letter[0]
 	highMatch := r.Password[r.Policy.Max-1] == r.Policy.Letter[0]
 
-	return (lowMatch || highMatch) && lowMatch != highMatch
-}
-
-// SelectStar reads all rows from the database and loads them into memory
-func SelectStar() []Row {
-	file, err := os.Open(databaseFile)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	scanner := bufio.NewScanner(file)
-
-	rows := make([]Row, 0, 50)
-	for scanner.Scan() {
-		rows = append(rows, NewRow(scanner.Text()))
-	}
-	return rows
+	return lowMatch != highMatch
 }
 
 func openDatabaseFile() *bufio.Scanner {
