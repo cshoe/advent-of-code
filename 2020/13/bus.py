@@ -63,12 +63,6 @@ def _build_offset_mod_table(filename):
 
 def part2(filename):
     table = _build_offset_mod_table(filename)
-    keys = list(table.keys())
-
-    first_bus = list(table.keys())[0]
-    step = first_bus
-
-
     for i, (bus_id, offset) in enumerate(table.items()):
         if i == 0:
             step = bus_id
