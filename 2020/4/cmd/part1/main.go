@@ -7,6 +7,5 @@ import (
 )
 
 func main() {
-	fmt.Println("fuck")
 	fmt.Println(passports.ParseFile())
 }
